@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 import { API_URL } from '../../data/ApiPath';
-import { ThreeCircles } from 'react-loader-spinner';
+// import { ThreeCircles } from 'react-loader-spinner';
 
 const AddProduct = () => {
   const [productName, setProductName] = useState("");
@@ -9,7 +9,7 @@ const AddProduct = () => {
   const [bestSeller, setBestSeller] = useState(false);
   const [image, setImage] = useState(null);
   const [description, setDescription] = useState("");
-  const [loading, setLoading] = useState(false); 
+  // const [loading, setLoading] = useState(false); 
 
   const handleCategoryChange = (event) =>{
       const value = event.target.value;
@@ -32,7 +32,7 @@ const AddProduct = () => {
 
   const handleAddProduct = async(e)=>{
     e.preventDefault()
-    setLoading(true); 
+    // setLoading(true); 
     try {
       const loginToken = localStorage.getItem('loginToken');
         const firmId = localStorage.getItem('firmId')
@@ -80,7 +80,7 @@ const AddProduct = () => {
 
   return (
     <div className="firmSection">
-      {loading &&         <div className="loaderSection">
+      {/* {loading &&         <div className="loaderSection">
         <ThreeCircles
           visible={loading}
           height={100}
@@ -91,8 +91,8 @@ const AddProduct = () => {
           wrapperClass=""
         />
         <p>Please wait, your product is being added...</p>
-      </div>}
-        {!loading && <form className="tableForm" onSubmit={handleAddProduct} >
+      </div>} */}
+        <form className="tableForm" onSubmit={handleAddProduct} >
           <h2>Add Product</h2>
           <label >Product Name</label>
           <input type="text" value={productName} onChange={(e)=>setProductName(e.target.value)} />
@@ -136,7 +136,7 @@ const AddProduct = () => {
         <div className="btnSubmit">
         <button type='submit'>Submit</button>
         <br /></div>
-        </form>}
+        </form>
     </div>
   )
 }

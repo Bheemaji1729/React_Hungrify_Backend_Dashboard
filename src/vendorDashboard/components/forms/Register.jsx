@@ -1,13 +1,13 @@
 import React, {useState} from 'react'
 import { API_URL } from '../../data/ApiPath';
-import { ThreeCircles } from 'react-loader-spinner';
+// import { ThreeCircles } from 'react-loader-spinner';
 
 const Register = ({showLoginHandler}) => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const [loading, setloading] = useState(true);
+  // const [loading, setloading] = useState(true);
   const [showPassword, setShowPassword] = useState(false);
 
   const handleShowPassword = () => {
@@ -16,7 +16,7 @@ const Register = ({showLoginHandler}) => {
   
 const handleSubmit = async(e)=>{
     e.preventDefault();
-    setloading(true);
+    // setloading(true);
   try {
         const response = await fetch(`${API_URL}/vendor/register`,{
           method: 'POST',
