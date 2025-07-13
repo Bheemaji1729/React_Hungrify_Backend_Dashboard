@@ -7,6 +7,7 @@ import AddFirm from '../components/forms/AddFirm'
 import AddProduct from '../components/forms/AddProduct'
 import Welcome from '../components/Welcome'
 import AllProducts from '../components/AllProducts'
+import WelcomeFigure from '../components/WelcomeFigure'
 
 const LandingPage = () => {
   const [showLogin, setShowLogin] = useState(false)
@@ -17,12 +18,14 @@ const LandingPage = () => {
   const [showAllProducts, setShowAllProducts] = useState(false)
   const [showLogOut, setShowLogOut] = useState(false)
   const [showFirmTitle, setShowFirmTitle] = useState(true)
+  const [showWelcomeFigure, setShowWelcomeFigure] = useState(true)
 
   useEffect(()=>{
       const loginToken = localStorage.getItem('loginToken');
       if(loginToken){
            setShowLogOut(true)
            setShowWelcom(true)
+           setShowWelcomeFigure(false)
       }
   },[])
 
@@ -45,6 +48,7 @@ const LandingPage = () => {
       setShowLogOut(false)
       setShowFirmTitle(true)
       setShowWelcom(false)
+      setShowWelcomeFigure(true)
   }
 
   const showLoginHandler = () => {
@@ -54,6 +58,7 @@ const LandingPage = () => {
     setShowProduct(false)
     setShowWelcom(false)
     setShowAllProducts(false)
+    setShowWelcomeFigure(false)
   }
 
   const showRegisterHandler = () => {
@@ -63,6 +68,7 @@ const LandingPage = () => {
      setShowProduct(false)
      setShowWelcom(false)
      setShowAllProducts(false)
+     setShowWelcomeFigure(false)
   }
 
   const showFirmHandler = () =>{
@@ -73,10 +79,11 @@ const LandingPage = () => {
     setShowProduct(false)
     setShowWelcom(false)
     setShowAllProducts(false)
-   }else{
+  }else{
     alert("Please login")
     setShowLogin(true)
     setShowRegister(false)
+    setShowWelcomeFigure(false)
    }
   }
   const showProductHandler = () =>{
@@ -87,10 +94,11 @@ const LandingPage = () => {
     setShowFirm(false)
     setShowWelcom(false)
     setShowAllProducts(false)
-   }else{
+  }else{
     alert("Please login")
     setShowLogin(true)
     setShowRegister(false)
+    setShowWelcomeFigure(false)
    }
   }
   const showWelcomeHandler = () =>{
@@ -100,8 +108,19 @@ const LandingPage = () => {
     setShowRegister(false)
     setShowFirm(false)
     setShowAllProducts(false)
+    setShowWelcomeFigure(false)
     
   }
+  const showWelcomeFigureHandler = ()=>{
+    setShowWelcomeFigure(true)
+    setShowWelcom(false)
+    setShowProduct(false)
+    setShowLogin(false)
+    setShowRegister(false)
+    setShowFirm(false)
+    setShowAllProducts(false)
+  }
+  
   const showAllProductsHandler = () =>{
    if(showLogOut){
     setShowAllProducts(true)
@@ -110,10 +129,11 @@ const LandingPage = () => {
     setShowLogin(false)
     setShowRegister(false)
     setShowFirm(false)
-   }else{
+  }else{
     alert("Please login")
     setShowLogin(true)
     setShowRegister(false)
+    setShowWelcomeFigure(false)
    }
   }
   return (
@@ -128,6 +148,7 @@ const LandingPage = () => {
            showAllProductsHandler = {showAllProductsHandler}
            showFirmTitle = {showFirmTitle}
            />
+           { showWelcomeFigure && <WelcomeFigure showWelcomeFigureHandler = {showWelcomeFigureHandler} /> }
           {showLogin && <Login showWelcomeHandler = {showWelcomeHandler} />}
           {showRegister && <Register showLoginHandler = {showLoginHandler} />}
           {showFirm && showLogOut && <AddFirm/> }

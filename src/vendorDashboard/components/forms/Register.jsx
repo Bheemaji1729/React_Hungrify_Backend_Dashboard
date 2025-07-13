@@ -1,13 +1,14 @@
 import React, {useState} from 'react'
 import { API_URL } from '../../data/ApiPath';
 // import { ThreeCircles } from 'react-loader-spinner';
+import { FadeLoader } from 'react-spinners';
 
 const Register = ({showLoginHandler}) => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  // const [loading, setloading] = useState(true);
+  const [loading, setloading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
 
   const handleShowPassword = () => {
@@ -16,7 +17,7 @@ const Register = ({showLoginHandler}) => {
   
 const handleSubmit = async(e)=>{
     e.preventDefault();
-    // setloading(true);
+    setloading(true);
   try {
         const response = await fetch(`${API_URL}/vendor/register`,{
           method: 'POST',
@@ -49,9 +50,9 @@ const handleSubmit = async(e)=>{
 
   return (
     <div className="registerSection">
-      {/* {loading && 
+      {loading && 
       <div className="loaderSection">
-      <ThreeCircles
+      {/* <ThreeCircles
         visible={loading}
         height={100}
         width={100}
@@ -59,11 +60,17 @@ const handleSubmit = async(e)=>{
         ariaLabel="three-circles-loading"
         wrapperStyle={{}}
         wrapperClass=""
-      />
+      /> */}
+      <FadeLoader
+        color="#4ead22"
+         height={20}
+         speedMultiplier={1}
+         width={5}
+        />
       <p>Hi, Your Registration under process</p>
     </div>
-     } */}
-        <form className='authForm' onSubmit={handleSubmit} autoComplete='off'>
+     }
+        {!loading && <form className='authForm' onSubmit={handleSubmit} autoComplete='off'>
         <h2>Vendor Register</h2>
             <label >Username</label>
             <input type="text" name = 'username' value={username} onChange={(e)=> setUsername(e.target.value)} placeholder='enter your name' /><br />
@@ -78,7 +85,7 @@ const handleSubmit = async(e)=>{
     <div className="btnSubmit">
         <button type='submit'>Submit</button>
     </div>
-        </form>
+        </form>}
     </div>
   );
 };

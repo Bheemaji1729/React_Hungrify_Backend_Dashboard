@@ -1,11 +1,12 @@
 import React, {useState} from 'react'
 import { API_URL } from '../../data/ApiPath';
 // import { ThreeCircles } from 'react-loader-spinner';
+import { FadeLoader } from 'react-spinners';
 
 const Login = ({showWelcomeHandler}) => {
   const [email, setEmail] = useState("");
   const [password, setPasswod] = useState("");
-  // const [loading, setLoading] = useState(false); 
+  const [loading, setLoading] = useState(false); 
   const [showPassword, setShowPassword] = useState(false)
 
   const handleShowPassword = ()=>{
@@ -14,7 +15,7 @@ const Login = ({showWelcomeHandler}) => {
   
   const loginHandler = async(e)=>{
     e.preventDefault();
-    // setLoading(true);
+    setLoading(true);
 try {
   const response = await fetch(`${API_URL}/vendor/login`, {
     method: 'POST',
@@ -55,8 +56,8 @@ try {
   }
   return (
     <div className="loginSection">
-      {/* {loading &&        <div className="loaderSection">
-        <ThreeCircles
+      {loading &&        <div className="loaderSection">
+        {/* <ThreeCircles
           visible={loading}
           height={100}
           width={100}
@@ -64,11 +65,17 @@ try {
           ariaLabel="three-circles-loading"
           wrapperStyle={{}}
           wrapperClass=""
+        /> */}
+       <FadeLoader
+        color="#4ead22"
+         height={20}
+         speedMultiplier={1}
+         width={5}
         />
         <p>Login in process... Please wait</p>
-      </div>} */}
+      </div>}
         
-        <form className='authForm' onSubmit={loginHandler} autoComplete='off'>
+       {!loading && <form className='authForm' onSubmit={loginHandler} autoComplete='off'>
         <h2>Vendor Login</h2><br />
             <label >Email</label>
             <input type="text" neme='email' value={email} onChange={(e)=>setEmail(e.target.value)} placeholder='enter your email' /><br />
@@ -80,7 +87,7 @@ try {
     <div className="btnSubmit">
         <button type='submit'>Submit</button>
     </div>
-        </form>
+        </form>}
     </div>
 
   )

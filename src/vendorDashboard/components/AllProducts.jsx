@@ -81,7 +81,7 @@ const AllProducts = () => {
                                   <button onClick={()=>deleteProductById(item._id)}className='deleteBtn'>Delete</button>
                                 </td>
                                </tr>
-                             
+                            
                           )
                   })}
              </tbody>

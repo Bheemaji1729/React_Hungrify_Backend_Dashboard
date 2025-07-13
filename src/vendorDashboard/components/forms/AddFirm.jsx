@@ -1,6 +1,7 @@
 import React, {useState} from 'react'
 import { API_URL } from '../../data/ApiPath';
 // import { ThreeCircles } from 'react-loader-spinner';
+import { FadeLoader } from 'react-spinners';
 
 const AddFirm = () => {
   const [firmName, setFirmName] = useState("");
@@ -9,7 +10,7 @@ const AddFirm = () => {
   const [region, setRegion] = useState([]);
   const [offer, setOffer] = useState("");
   const [file, setFile] = useState(null);
-  // const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const handleCategoryChange = (event) =>{
       const value = event.target.value;
@@ -36,7 +37,7 @@ const AddFirm = () => {
 
   const handleFirmSubmit = async(e) => {
         e.preventDefault();
-      // setLoading(true);
+      setLoading(true);
     try {
          const loginToken = localStorage.getItem('loginToken');
          if(!loginToken){
@@ -100,8 +101,8 @@ const AddFirm = () => {
 
   return (
     <div className="firmSection">
-      {/* {loading &&  <div className="loaderSection">
-        <ThreeCircles 
+      {loading &&  <div className="loaderSection">
+        {/* <ThreeCircles 
         visible = {loading}
          height = {100}
          width = {100}
@@ -109,10 +110,18 @@ const AddFirm = () => {
          ariaLabel= "three-circles-loading"
         wrapperStyle={{}}
          wrapperClass=""
+        /> */}
+        <FadeLoader
+        color="#4ead22"
+         height={20}
+         speedMultiplier={1}
+         width={5}
         />
-        </div>} */}
+        <p>Please wait, your Firm is being added...</p>
+        </div>}
 
-         <form className="tableForm"  onSubmit={handleFirmSubmit} >
+
+        {!loading && <form className="tableForm"  onSubmit={handleFirmSubmit} >
           <h2>Add Firm</h2>
           <label >Firm Name</label>
           <input type="text" name='firmName' value={firmName} onChange={(e)=>setFirmName(e.target.value)} />
@@ -168,7 +177,7 @@ const AddFirm = () => {
         <div className="btnSubmit">
         <button type='submit' >Submit</button>
         <br /></div>
-        </form>
+        </form>}
     </div>
   )
 }
