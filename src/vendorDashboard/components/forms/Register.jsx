@@ -1,9 +1,9 @@
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 import { API_URL } from '../../data/ApiPath';
 // import { ThreeCircles } from 'react-loader-spinner';
 import { FadeLoader } from 'react-spinners';
 
-const Register = ({showLoginHandler}) => {
+const Register = ({ showLoginHandler }) => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -14,45 +14,45 @@ const Register = ({showLoginHandler}) => {
   const handleShowPassword = () => {
     setShowPassword(!showPassword);
   };
-  
-const handleSubmit = async(e)=>{
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setloading(true);
-  try {
-        const response = await fetch(`${API_URL}/vendor/register`,{
-          method: 'POST',
-          headers:{
-            'Content-Type' :'application/json'
-          },
-          body: JSON.stringify({username,email,password})
+    try {
+      const response = await fetch(`${API_URL}/vendor/register`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ username, email, password })
 
-        })
-        const data = await response.json();
-        if(response.ok){
-          console.log(data);
-          setUsername("");
-          setEmail("");
-          setPassword("");
-          alert( "vendor registered success")
-          showLoginHandler()
-        } else {
+      })
+      const data = await response.json();
+      if (response.ok) {
+        console.log(data);
+        setUsername("");
+        setEmail("");
+        setPassword("");
+        alert("vendor registered success")
+        showLoginHandler()
+      } else {
         setError(data.error);
         alert("Registration Failed, Contact Admin")
       }
 
-  } catch (error) {
-      console.error("restration failed",error);
+    } catch (error) {
+      console.error("restration failed", error);
       alert("Registration failed")
-  } finally{
-    setloading(false);
-  }
-};
+    } finally {
+      setloading(false);
+    }
+  };
 
   return (
     <div className="registerSection">
-      {loading && 
-      <div className="loaderSection">
-      {/* <ThreeCircles
+      {loading &&
+        <div className="loaderSection">
+          {/* <ThreeCircles
         visible={loading}
         height={100}
         width={100}
@@ -61,31 +61,31 @@ const handleSubmit = async(e)=>{
         wrapperStyle={{}}
         wrapperClass=""
       /> */}
-      <FadeLoader
-        color="#4ead22"
-         height={20}
-         speedMultiplier={1}
-         width={5}
-        />
-      <p>Hi, Your Registration under process</p>
-    </div>
-     }
-        {!loading && <form className='authForm' onSubmit={handleSubmit} autoComplete='off'>
+          <FadeLoader
+            color="#4ead22"
+            height={20}
+            speedMultiplier={1}
+            width={5}
+          />
+          <p>Hi, Your Registration under process</p>
+        </div>
+      }
+      {!loading && <form className='authForm' onSubmit={handleSubmit} autoComplete='off'>
         <h2>Vendor Register</h2>
-            <label >Username</label>
-            <input type="text" name = 'username' value={username} onChange={(e)=> setUsername(e.target.value)} placeholder='enter your name' /><br />
-            <label >Email</label>
-            <input type="text" name = 'email' value={email} onChange={(e)=> setEmail(e.target.value)} placeholder='enter your email' /><br />
-            <label>Password</label>
-            <input type={showPassword ? "text" : "password"}  value={password} onChange={(e) => setPassword(e.target.value)} name='password' placeholder='enter your password' /><br />
-            <span className='showPassword'
-               onClick={handleShowPassword}
-             >{showPassword ? 'Hide' : 'Show'}</span>
+        <label >Username</label>
+        <input type="text" name='username' value={username} onChange={(e) => setUsername(e.target.value)} placeholder='enter your name' /><br />
+        <label >Email</label>
+        <input type="text" name='email' value={email} onChange={(e) => setEmail(e.target.value)} placeholder='enter your email' /><br />
+        <label>Password</label>
+        <input type={showPassword ? "text" : "password"} value={password} onChange={(e) => setPassword(e.target.value)} name='password' placeholder='enter your password' /><br />
+        <span className='showPassword'
+          onClick={handleShowPassword}
+        >{showPassword ? 'Hide' : 'Show'}</span>
 
-    <div className="btnSubmit">
-        <button type='submit'>Submit</button>
-    </div>
-        </form>}
+        <div className="btnSubmit">
+          <button type='submit'>Submit</button>
+        </div>
+      </form>}
     </div>
   );
 };
